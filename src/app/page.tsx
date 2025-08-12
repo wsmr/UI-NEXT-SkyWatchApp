@@ -1,42 +1,27 @@
-import React, { useState } from 'react';
+// src/app/page.tsx
+import React from 'react';
+import AuroraForecastCard from '@/components/AuroraForecastCard';
 import LocationDetector from '@/components/LocationDetector';
 import { fetchNASAData, fetchTimeanddateData, fetchAuroraData, fetchMeteomaticsData } from '@/lib/apiService';
 
-const Home: React.FC = () => {
-  const [location, setLocation] = useState<{ latitude: number; longitude: number } | null>(null);
-  const [events, setEvents] = useState<any[]>([]);
-  const [loading, setLoading] = useState(false);
+const HomePage: React.FC = () => {
+  const [location, setLocation] = React.useState<{ latitude: number; longitude: number } | null>(null);
 
-  const handleLocationDetected = async (loc: { latitude: number; longitude: number }) => {
+  const handleLocationDetected = (loc: { latitude: number; longitude: number }) => {
     setLocation(loc);
-    setLoading(true);
-    const nasaData = await fetchNASAData('planetary/apod');
-    const timeanddateData = await fetchTimeanddateData(`astro?latitude=${loc.latitude}&longitude=${loc.longitude}`);
-    const auroraData = await fetchAuroraData();
-    const meteomaticsData = await fetchMeteomaticsData('meteor_showers_perseids_visibility:idx');
-
-    setEvents([nasaData, timeanddateData, auroraData, meteomaticsData].filter(event => event !== null));
-    setLoading(false);
   };
 
   return (
-      <div>
-        <h1>SkyWatchApp</h1>
+      <div className="container mx-auto p-4">
+        <h1 className="text-3xl font-bold mb-6">SkyWatchApp</h1>
         <LocationDetector onLocationDetected={handleLocationDetected} />
-        {loading ? (
-            <p>Loading events...</p>
-        ) : (
-            <div>
-              {events.map((event, index) => (
-                  <div key={index}>
-                    <h2>{event.title || 'Event'}</h2>
-                    <p>{event.explanation || event.description || 'No description available'}</p>
-                  </div>
-              ))}
+        {location && (
+            <div className="mt-6">
+              <AuroraForecastCard />
             </div>
         )}
       </div>
   );
 };
 
-export default Home;
+export default HomePage;
