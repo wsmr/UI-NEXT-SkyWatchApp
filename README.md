@@ -35,3 +35,45 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 # UI-NEXT-SkyWatchApp
+
+
+## Structure of the project
+
+├── sky-watch-app/              # The root directory of the Next.js application.
+│   ├── .wrangler/              # Contains Wrangler-specific files and configurations.
+│   ├── migrations/
+│   │   └── 0001_initial.sql    # Initial SQL migration file for database setup.
+│   ├── node_modules/
+│   ├── public/                 # A directory for static files like images and icons.
+│   ├── src/                    # Contains the main application code.
+│   │   ├── app/                # The core application files, including pages and layouts.
+│   │   │   ├── counter.ts
+│   │   │   ├── favicon.ico
+│   │   │   ├── globals.css
+│   │   │   ├── layout.tsx
+│   │   │   └── page.tsx
+│   │   ├── components/         # Reusable UI components, each focusing on specific functionalities like aurora forecasts, moon phases, etc.
+│   │   │   ├── AuroraForecastCard.tsx
+│   │   │   ├── DailyHighlights.tsx
+│   │   │   ├── LocationDetector.tsx
+│   │   │   ├── MeteorShowersCard.tsx
+│   │   │   ├── MoonPhaseCard.tsx
+│   │   │   ├── PlanetsCard.tsx
+│   │   │   ├── SatellitesCard.tsx
+│   │   │   └── ui/
+│   │   ├── hooks/              # Placeholder for custom React hooks.
+│   │   ├── lib/
+│   │   │   └── apiService.ts   # Centralized API functions for fetching data from various astronomy APIs.
+│   │   └── ...
+│   ├── README.md               # Project overview and setup instructions.
+│   ├── components.json         # Configuration related to components.
+│   ├── env.d.ts
+│   ├── eslint.config.mjs
+│   ├── next.config.ts          # Configuration files for Next.js and deployment settings.
+│   ├── next-env.d.ts
+│   ├── open-next.config.ts     # Configuration files for Next.js and deployment settings.
+│   ├── package.json            # Project dependencies and lockfile.
+│   ├── pnpm-lock.yaml          # Project dependencies and lockfile.
+│   ├── postcss.config.mjs      # Configuration files for Tailwind CSS and PostCSS.
+│   ├── tailwind.config.ts      # Configuration files for Tailwind CSS and PostCSS.
+│   └── wrangler.toml
