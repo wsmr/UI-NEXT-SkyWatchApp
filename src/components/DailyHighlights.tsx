@@ -138,7 +138,7 @@ export default function DailyHighlights({ data }: DailyHighlightsProps) {
     return (
         <div className="bg-gradient-to-r from-indigo-900/70 to-purple-900/70 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-indigo-700 mb-8">
             <h2 className="text-2xl md:text-3xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300">
-                Tonight's Highlights
+                Tonight&#39;s Highlights
             </h2>
             <p className="text-slate-300 mb-6">{formatDate(data.date)}</p>
 
