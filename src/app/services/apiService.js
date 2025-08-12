@@ -1,13 +1,13 @@
 import axios from 'axios';
 
 const API_KEYS = {
-    NASA: 'YOUR_NASA_API_KEY',
-    TIMEANDDATE: 'YOUR_TIMEANDDATE_API_KEY',
-    AURORA: 'YOUR_AURORA_API_KEY',
-    METEOMATICS: 'YOUR_METEOMATICS_API_KEY'
+    NASA: process.env.NEXT_PUBLIC_NASA_API_KEY,
+    TIMEANDDATE: process.env.NEXT_PUBLIC_TIMEANDDATE_API_KEY,
+    AURORA: process.env.NEXT_PUBLIC_AURORA_API_KEY,
+    METEOMATICS: process.env.NEXT_PUBLIC_METEOMATICS_API_KEY
 };
 
-export const fetchNASAData = async (endpoint) => {
+export const fetchNASAData = async (endpoint: string) => {
     try {
         const response = await axios.get(`https://api.nasa.gov/${endpoint}?api_key=${API_KEYS.NASA}`);
         return response.data;
@@ -17,7 +17,7 @@ export const fetchNASAData = async (endpoint) => {
     }
 };
 
-export const fetchTimeanddateData = async (endpoint) => {
+export const fetchTimeanddateData = async (endpoint: string) => {
     try {
         const response = await axios.get(`https://dev.timeanddate.com/astro/${endpoint}?api_key=${API_KEYS.TIMEANDDATE}`);
         return response.data;
@@ -37,7 +37,7 @@ export const fetchAuroraData = async () => {
     }
 };
 
-export const fetchMeteomaticsData = async (parameter) => {
+export const fetchMeteomaticsData = async (parameter: string) => {
     try {
         const response = await axios.get(`https://api.meteomatics.com/${parameter}?api_key=${API_KEYS.METEOMATICS}`);
         return response.data;

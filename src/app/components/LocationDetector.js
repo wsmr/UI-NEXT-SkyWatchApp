@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from 'react';
 
-const LocationDetector = ({ onLocationDetected }) => {
-    const [location, setLocation] = useState(null);
-    const [error, setError] = useState(null);
+interface Location {
+    latitude: number;
+    longitude: number;
+}
+
+interface LocationDetectorProps {
+    onLocationDetected: (location: Location) => void;
+}
+
+const LocationDetector: React.FC<LocationDetectorProps> = ({ onLocationDetected }) => {
+    const [location, setLocation] = useState<Location | null>(null);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         if (navigator.geolocation) {
