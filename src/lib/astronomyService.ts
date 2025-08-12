@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 // Define interfaces for API responses
-interface MoonPhase {
+export interface MoonPhase {
     phase: string;
     illumination: number;
     age: number;
@@ -9,7 +9,7 @@ interface MoonPhase {
     nextNewMoon: string;
 }
 
-interface PlanetVisibility {
+export interface PlanetVisibility {
     name: string;
     visible: boolean;
     riseTime?: string;
@@ -18,7 +18,7 @@ interface PlanetVisibility {
     azimuth?: number;
 }
 
-interface SatellitePass {
+export interface SatellitePass {
     name: string;
     startTime: string;
     endTime: string;
@@ -28,7 +28,7 @@ interface SatellitePass {
     visible: boolean;
 }
 
-interface MeteorShower {
+export interface MeteorShower {
     name: string;
     active: boolean;
     peak: string;
@@ -42,7 +42,7 @@ export interface AuroraForecast {
     visibility: number;
 }
 
-interface AstronomyData {
+export interface AstronomyData {
     date: string;
     location: {
         latitude: number;

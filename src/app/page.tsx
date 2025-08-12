@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from 'react';
 import LocationDetector from '@/components/LocationDetector';
 import { useAstronomyData } from '@/lib/astronomyService';

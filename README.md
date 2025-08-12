@@ -6,6 +6,7 @@ First, run the development server:
 
 ```bash
 npm run dev
+
 # or
 yarn dev
 # or
@@ -38,7 +39,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 
 ## Structure of the project
-
+```bash
 ├── sky-watch-app/              # The root directory of the Next.js application.
 │   ├── .wrangler/              # Contains Wrangler-specific files and configurations.
 │   ├── migrations/
@@ -77,3 +78,9 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 │   ├── postcss.config.mjs      # Configuration files for Tailwind CSS and PostCSS.
 │   ├── tailwind.config.ts      # Configuration files for Tailwind CSS and PostCSS.
 │   └── wrangler.toml
+```
+
+cd /skywatchapp && npm run build
+cd /skywatchapp && npm run start
+cd /home && lsof -i :3000 | grep LISTEN
+cd /home && pkill -f "node.*next"
