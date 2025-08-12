@@ -1,0 +1,23 @@
+1. Moon Phases and Lunar Events:
+Moon API
+NASA API
+
+2. Planetary Visibility:
+TheSkyLive API
+NASA API
+
+3. ISS and Satellite Tracking:
+OpenNotify API
+N2YO API
+
+4. Meteor Showers:
+International Meteor Organization (IMO)
+NASA API
+
+5. Aurora Forecasts:
+Aurora Forecast API
+Space Weather Prediction Center API
+
+6. Other Celestial Events:
+NASA API
+AstronomyAPI
