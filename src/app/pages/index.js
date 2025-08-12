@@ -1,33 +1,53 @@
-import React, { useState } from 'react';
-import LocationDetector from '../components/LocationDetector';
+import React, { useState, useEffect } from 'react';
 import { fetchNASAData, fetchTimeanddateData, fetchAuroraData, fetchMeteomaticsData } from '../services/apiService';
 
 const Home = () => {
     const [location, setLocation] = useState(null);
     const [events, setEvents] = useState([]);
+    const [loading, setLoading] = useState(false);
 
-    const handleLocationDetected = async (loc) => {
-        setLocation(loc);
-        const nasaData = await fetchNASAData('planetary/apod');
-        const timeanddateData = await fetchTimeanddateData('astro?latitude=' + loc.latitude + '&longitude=' + loc.longitude);
-        const auroraData = await fetchAuroraData();
-        const meteomaticsData = await fetchMeteomaticsData('meteor_showers_perseids_visibility:idx');
+    useEffect(() => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    setLocation({ latitude, longitude });
+                },
+                (error) => {
+                    console.error('Error getting location:', error);
+                }
+            );
+        }
+    }, []);
 
-        // Combine all data into events and set it to state
-        setEvents([...events, nasaData, timeanddateData, auroraData, meteomaticsData]);
-    };
+    useEffect(() => {
+        if (location) {
+            setLoading(true);
+            const fetchData = async () => {
+                const nasaData = await fetchNASAData('planetary/apod');
+                const timeanddateData = await fetchTimeanddateData(`astro?latitude=${location.latitude}&longitude=${location.longitude}`);
+                const auroraData = await fetchAuroraData();
+                const meteomaticsData = await fetchMeteomaticsData('meteor_showers_perseids_visibility:idx');
+
+                setEvents([nasaData, timeanddateData, auroraData, meteomaticsData].filter(event => event !== null));
+                setLoading(false);
+            };
+
+            fetchData();
+        }
+    }, [location]);
 
     return (
         <div>
             <h1>SkyWatchApp</h1>
-            <LocationDetector onLocationDetected={handleLocationDetected} />
-            {location && (
+            {loading ? (
+                <p>Loading events...</p>
+            ) : (
                 <div>
-                    <h2>Celestial Events</h2>
                     {events.map((event, index) => (
                         <div key={index}>
-                            <h3>{event.title || 'Untitled Event'}</h3>
-                            <p>{event.description || 'No description available'}</p>
+                            <h2>{event.title || 'Event'}</h2>
+                            <p>{event.explanation || event.description || 'No description available'}</p>
                         </div>
                     ))}
                 </div>
