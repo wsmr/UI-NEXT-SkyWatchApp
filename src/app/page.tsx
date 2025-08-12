@@ -1,6 +1,12 @@
 import { useState } from 'react';
 import LocationDetector from '@/components/LocationDetector';
 import { useAstronomyData } from '@/lib/astronomyService';
+import MoonPhaseCard from '@/components/MoonPhaseCard';
+import PlanetsCard from '@/components/PlanetsCard';
+import SatellitesCard from '@/components/SatellitesCard';
+import MeteorShowersCard from '@/components/MeteorShowersCard';
+import AuroraForecastCard from '@/components/AuroraForecastCard';
+import DailyHighlights from '@/components/DailyHighlights';
 
 export default function Home() {
     const [location, setLocation] = useState<{ latitude: number | null; longitude: number | null }>({
@@ -59,33 +65,38 @@ export default function Home() {
                         <p>{error}</p>
                     </div>
                 ) : data ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {/* Placeholder for astronomy data components */}
-                        <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-slate-700">
-                            <h2 className="text-2xl font-bold mb-4 text-blue-300">Moon Phase</h2>
-                            <p className="text-lg">Data will be displayed here</p>
-                        </div>
+                    <>
+                        {/* Daily Highlights Section */}
+                        <DailyHighlights data={data} />
 
-                        <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-slate-700">
-                            <h2 className="text-2xl font-bold mb-4 text-blue-300">Visible Planets</h2>
-                            <p className="text-lg">Data will be displayed here</p>
-                        </div>
+                        {/* Detailed Astronomy Data */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {data.moonPhase && (
+                                <MoonPhaseCard moonPhase={data.moonPhase} />
+                            )}
 
-                        <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-slate-700">
-                            <h2 className="text-2xl font-bold mb-4 text-blue-300">ISS & Satellite Passes</h2>
-                            <p className="text-lg">Data will be displayed here</p>
-                        </div>
+                            {data.planets && data.planets.length > 0 && (
+                                <PlanetsCard planets={data.planets} />
+                            )}
 
-                        <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-slate-700">
-                            <h2 className="text-2xl font-bold mb-4 text-blue-300">Meteor Showers</h2>
-                            <p className="text-lg">Data will be displayed here</p>
-                        </div>
+                            {data.satellites && data.satellites.length > 0 && (
+                                <SatellitesCard satellites={data.satellites} />
+                            )}
 
-                        <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-slate-700 md:col-span-2">
-                            <h2 className="text-2xl font-bold mb-4 text-blue-300">Aurora Forecast</h2>
-                            <p className="text-lg">Data will be displayed here</p>
+                            {data.meteorShowers && data.meteorShowers.length > 0 && (
+                                <MeteorShowersCard meteorShowers={data.meteorShowers} />
+                            )}
+
+                            {data.auroraForecast && data.location.latitude && (
+                                <div className="md:col-span-2">
+                                    <AuroraForecastCard
+                                        auroraForecast={data.auroraForecast}
+                                        latitude={data.location.latitude}
+                                    />
+                                </div>
+                            )}
                         </div>
-                    </div>
+                    </>
                 ) : (
                     <div className="text-center py-12 bg-slate-800/30 rounded-xl border border-slate-700">
                         <h2 className="text-2xl font-bold mb-4">Welcome to SkyWatch</h2>

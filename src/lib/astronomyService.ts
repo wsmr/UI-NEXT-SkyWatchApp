@@ -36,7 +36,7 @@ interface MeteorShower {
     visibility: number;
 }
 
-interface AuroraForecast {
+export interface AuroraForecast {
     kpIndex: number;
     probability: number;
     visibility: number;
